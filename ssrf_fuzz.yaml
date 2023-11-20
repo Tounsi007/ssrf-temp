@@ -1,0 +1,38 @@
+id: ssrf-header-injection
+
+info:
+  name: ssrf-header-injection
+  author: tounsi_007
+  severity: high
+  description: This Templates checks SSRF vulnerability
+  reference:
+    - https://github.com/bugcrowd/HUNT/blob/master/ZAP/scripts/passive/SSRF.py
+  tags: ssrf
+
+requests:
+  - raw:
+      - |
+        GET / HTTP/1.1
+        Host: {{payload}}
+        User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+        Connection: close
+      - |
+        GET / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+        {{header}}:{{payload}}
+        Connection: close
+
+   payloads:
+      payload: ~/fuzz-templ/ssrf-hosts.txt
+      header: ~/fuzz-templ/proxy-headers.txt
+
+   attack: clusterbomb
+   host-redirects: true
+   stop-at-first-match: true
+
+    threads: 10
+    matchers:
+    - type: status
+      status:
+        - 200
