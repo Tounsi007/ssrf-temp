@@ -24,8 +24,8 @@ requests:
         Connection: close
 
    payloads:
-      payload: ~/fuzz-templ/ssrf-hosts.txt
-      header: ~/fuzz-templ/proxy-headers.txt
+      payload: ssrf-hosts.txt
+      header: proxy-headers.txt
 
    attack: clusterbomb
    host-redirects: true
