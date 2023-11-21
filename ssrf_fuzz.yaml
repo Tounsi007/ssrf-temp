@@ -2,7 +2,7 @@ id: ssrf-header-injection
 
 info:
   name: ssrf-header-injection
-  author: tounsi_007
+  author: t007
   severity: high
   description: This Templates checks SSRF vulnerability
   reference:
